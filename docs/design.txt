@@ -1,0 +1,35 @@
+Implementation Strategy
+=======================
+
+Virtual Machine
+---------------
+
+The virtual machine is a Linux process running under ptrace(). Instructions 
+or addressing not implemented in the host architecture are implemented as
+"system calls" or "illegal instructions" and are trapped by prtrace() which
+delivers them to the parent process for emulation.
+
+These operations are of the type:
+
+   Copy memory from/to current segment and another segment.
+   Transfer control to a different segment (call6, ret).
+   Page faults, directed faults.
+
+Code Generation
+---------------
+
+Strategy 1: The Multics 'pl1' compiler is modified to generate host (x86 or
+ARM, eg), and then recompiles itself to the host. The needed parts of 
+pl1_operators_ is is hand translated to the host.
+
+Strategy 2: Mind Springs PL/I is used to rebuild Multics on the host. (But
+it is a closed compiler; can 'segments' be usefully implemented?)
+
+Strategy 3: Another PL/I compiler is used. ($$$).
+
+Strategy 4: Multics is translated to a supported language.
+
+
+
+
+
